@@ -11,6 +11,12 @@
   <TableWithSelects /> -->
   <!-- <RegisterForm /> -->
    <DynamicForm />
+
+   <nav>
+    <router-link to="/users">用戶管理</router-link>
+  </nav>
+
+  <router-view></router-view>
 </template>
 
 <script setup>

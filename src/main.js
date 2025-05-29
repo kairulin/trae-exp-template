@@ -1,14 +1,22 @@
-import './assets/main.css'
+import "./assets/main.css";
+import { createApp } from "vue";
+import { createPinia } from "pinia";
+import App from "./App.vue";
+import router from "./router";
+// 在启动之前先等待注册完成
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+if (import.meta.env.DEV) {
+  const { worker } = await import("./mocks/browser");
+  await worker.start({
+    // 再启动拦截器（start 可不带参数）
+    onUnhandledRequest: "warn",
+    quiet: false,
+  });
+}
 
-import App from './App.vue'
-import router from './router'
+const app = createApp(App);
 
-const app = createApp(App)
+app.use(createPinia());
+app.use(router);
 
-app.use(createPinia())
-app.use(router)
-
-app.mount('#app')
+app.mount("#app");
